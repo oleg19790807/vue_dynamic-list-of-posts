@@ -14,7 +14,7 @@
         <tr class="has-background-link-light">
           <th>ID</th>
           <th>Title</th>
-          <th className="has-text-right">Actions</th>
+          <th class="has-text-right">Actions</th>
         </tr>
       </thead>
       <tbody>

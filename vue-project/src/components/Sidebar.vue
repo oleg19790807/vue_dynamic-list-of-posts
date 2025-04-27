@@ -21,7 +21,7 @@
           v-for="comment in comments"
           :key="comment.id"
           :comment="comment"
-          @delete="deleteComment"
+          @delete="handleDeleteComment"
         />
       </div>
       <button
@@ -49,7 +49,7 @@ import CommentForm from './CommentForm.vue';
 import Loader from './Loader.vue';
 import { useComments } from '../composables/useComments';
 
-defineProps(['post', 'isEditing', 'isCreating']);
+const props = defineProps(['post', 'isEditing', 'isCreating']);
 const emit = defineEmits(['close', 'save-post', 'delete-post', 'edit-post', 'add-comment', 'delete-comment']);
 
 const { comments, loadingComments, commentsError, fetchComments, createComment, deleteComment } = useComments();
@@ -92,7 +92,7 @@ const addComment = async (commentData) => {
   }
 };
 
-const deleteComment = async (commentId) => {
+const handleDeleteComment = async (commentId) => {
   try {
     comments.value = comments.value.filter((c) => c.id !== commentId);
     await deleteComment(props.post.id, commentId);
@@ -102,22 +102,3 @@ const deleteComment = async (commentId) => {
   }
 };
 </script>
-
-<style scoped>
-.Sidebar {
-  overflow: hidden;
-  opacity: 0;
-  transition-property: max-width, opacity;
-  transition-duration: 0.5s;
-  transition-timing-function: ease-in-out;
-}
-@media (min-width: 769px) {
-  .Sidebar {
-    max-width: 0;
-  }
-  .Sidebar--open {
-    opacity: 1;
-    max-width: 50%;
-  }
-}
-</style>

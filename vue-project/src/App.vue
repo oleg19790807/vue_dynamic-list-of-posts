@@ -1,6 +1,6 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import TheWelcome from "./components/TheWelcome.vue";
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import TheWelcome from './components/TheWelcome.vue'
       <div class="navbar-item">
         <div class="buttons">
           <div class="mr-5 mb-2">
-            <p>User: {{ user?.name || 'Guest' }}</p>
+            <p>User: {{ user?.name || "Guest" }}</p>
           </div>
           <a class="button is-light" @click="logout">Logout</a>
         </div>
@@ -44,10 +44,10 @@ import TheWelcome from './components/TheWelcome.vue'
           :is-creating="isCreating"
           @close="closeSidebar"
           @save-post="savePost"
-          @delete-post="deletePost"
+          @delete-post="handleDeletePost"
           @edit-post="startEditing"
           @add-comment="addComment"
-          @delete-comment="deleteComment"
+          @delete-comment="handleDeleteComment"
         />
       </div>
     </div>
@@ -55,7 +55,7 @@ import TheWelcome from './components/TheWelcome.vue'
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import PostsTable from './components/PostsTable.vue';
 import Sidebar from './components/Sidebar.vue';
 import { usePosts } from './composables/usePosts';
@@ -111,7 +111,7 @@ const savePost = async (postData) => {
   }
 };
 
-const deletePost = async (postId) => {
+const handleDeletePost = async (postId) => {
   try {
     await deletePost(postId);
     posts.value = posts.value.filter((p) => p.id !== postId);
@@ -129,11 +129,7 @@ const addComment = async (commentData) => {
   // Handled in Sidebar.vue
 };
 
-const deleteComment = async (commentId) => {
+const handleDeleteComment = async (commentId) => {
   // Handled in Sidebar.vue
 };
 </script>
-
-<style scoped>
-@import './assets/main.css';
-</style>
